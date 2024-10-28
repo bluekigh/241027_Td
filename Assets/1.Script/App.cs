@@ -23,11 +23,14 @@ public class App : Singleton<App>
         }
     }
 
+    public Vector3[] Waypoint { get; internal set; }
+
     private void Death()
     {
         Debug.LogWarning($" Game Over");
 
     }
+
 
     public bool BuyTower(int towercost)   // App.Instace.BuyTower(0) = true ->  돈있음. false면 돈없음.
     {

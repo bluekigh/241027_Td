@@ -15,18 +15,19 @@ public class StageManager : MonoBehaviour
 
     private void Env_Create()
     {
+
         for (int i = 0; i < 6; i++)
         {
             for (int j = 0; j < 10; j++)
             {
-                Instantiate(env_Obj[UnityEngine.Random.Range(0, env_Obj.Length)], new Vector3(i + 5.5f, 0, j - 3.5f), Quaternion.identity);
+                Instantiate(env_Obj[UnityEngine.Random.Range(0, env_Obj.Length)], new Vector3(i + 5.5f, 0, j - 3.5f), Quaternion.identity, this.gameObject.transform);
             }
         }
         for (int i = 0; i < 13; i++)
         {
             for (int j = 0; j < 10; j++)
             {
-                Instantiate(env_Obj[UnityEngine.Random.Range(0, env_Obj.Length)], new Vector3(i - 17.5f, 0, j - 3.5f), Quaternion.identity);
+                Instantiate(env_Obj[UnityEngine.Random.Range(0, env_Obj.Length)], new Vector3(i - 17.5f, 0, j - 3.5f), Quaternion.identity, this.gameObject.transform);
             }
         }
 
@@ -34,7 +35,7 @@ public class StageManager : MonoBehaviour
         {
             for (int j = 0; j < 4; j++)
             {
-                Instantiate(env_Obj[UnityEngine.Random.Range(0, env_Obj.Length)], new Vector3(i - 17.5f, 0, j + 6.5f), Quaternion.identity);
+                Instantiate(env_Obj[UnityEngine.Random.Range(0, env_Obj.Length)], new Vector3(i - 17.5f, 0, j + 6.5f), Quaternion.identity, this.gameObject.transform);
             }
         }
 
@@ -42,7 +43,7 @@ public class StageManager : MonoBehaviour
         {
             for (int j = 0; j < 11; j++)
             {
-                Instantiate(env_Obj[UnityEngine.Random.Range(0, env_Obj.Length)], new Vector3(i - 12.5f, 0, j - 14.5f), Quaternion.identity);
+                Instantiate(env_Obj[UnityEngine.Random.Range(0, env_Obj.Length)], new Vector3(i - 12.5f, 0, j - 14.5f), Quaternion.identity, this.gameObject.transform);
             }
         }
     }
