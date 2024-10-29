@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class Enemy_Move : MonoBehaviour
 {
-    public float speed = 10f;
+    public float speed = 5f;
     public float rotationSpeed = 500f;
-    private int HP = 10;
+   
 
     public Vector3[] target = new Vector3[] { };
     
@@ -18,27 +18,33 @@ public class Enemy_Move : MonoBehaviour
 
     private void Start()
     {
-        //target = waypoints.points[0];
         target = App.Instance.Waypoint;
     }
     private void Update()
     {
-        Vector3 dir = target[waypointIndex]- this.transform.position  ;
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+        if (waypointIndex >= target.Length) return;
+
+        Vector3 dir = target[waypointIndex]- this.transform.position  ; 
+        //방향계산
+        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World); 
+        //이동처리
         if (dir != Vector3.zero)
+            //회전처리
         {
             Quaternion toRotation = Quaternion.LookRotation(dir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
         if (Vector3.Distance(transform.position, target[waypointIndex]) <= 0.1f)
+            //현재 웨이포인트에 거의 도착했는지 체크
         {
-            GetNextwayPoint();
+            GetNextwayPoint();  
         }    
     }
     private void GetNextwayPoint()
     {
-        if (waypointIndex >= waypoints.points.Length -1)
+        if (waypointIndex >= App.Instance.Waypoint.Length -1)
         {
+            App.Instance.ReachDestination(1); //데미지함수
             Destroy(gameObject);
             return;
         }

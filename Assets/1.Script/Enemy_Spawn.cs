@@ -7,7 +7,7 @@ public class Enemy_Spawn : MonoBehaviour
     public Transform EnemyPrefab;          //적 프리팹
     public float  WavesTime  =5f;          //적 생성 시간 간격
     private float Countdown  = 2f;         //시작하기전 카운트
-    private int WaveNumber   = 1;          //스테이지 번호
+    private int WaveNumber   = 1;          //적 마리수
 
     private void Update()
     {
@@ -24,12 +24,12 @@ public class Enemy_Spawn : MonoBehaviour
         {
             EnemySpawn();
         }
-        WaveNumber++;
+        
     }
     private void EnemySpawn()
     {
 
-        //Instantiate(EnemyPrefab, waypoints.points[0].position, waypoints.points[0].rotation );
-        Instantiate(EnemyPrefab, App.Instance.Waypoint[0], Quaternion.identity);
+        Vector3 spawnpoint = App.Instance.Waypoint[0];
+        Instantiate(EnemyPrefab, spawnpoint, Quaternion.Euler(0, 180, 0));
     }
 }

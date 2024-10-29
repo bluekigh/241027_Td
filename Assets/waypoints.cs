@@ -9,16 +9,13 @@ public class waypoints : MonoBehaviour
     
     void Start()
     {
-        //points = new Transform[transform.childCount];
-        //for (int i = 0; i < points.Length; i++)
-        //{
-        //    points[i] = transform.GetChild(i);
-        //}
-
-        points = new Vector3[App.Instance.Waypoint.Length];
-        for (int i = 0; i < points.Length; i++)
+      if(App.Instance.Waypoint != null)
         {
-           points[i]= App.Instance.Waypoint[i];
-        }
+            points = new Vector3[App.Instance.Waypoint.Length];
+            for (int i = 0; i < points.Length; i++)
+            {
+                points[i] = App.Instance.Waypoint[i];
+            }
+        }  
     }
 }
