@@ -9,8 +9,8 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        Instantiate(stage[0]);
-        Instantiate(stage[1]);
+        //Instantiate(stage[0]);
+        //Instantiate(stage[1]);
         Instantiate(gameobject_UI);
         Env_Create();
     }
