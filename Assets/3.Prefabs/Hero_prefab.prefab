@@ -764,6 +764,7 @@ GameObject:
   - component: {fileID: 5920279975343108693}
   - component: {fileID: 6931206495004429007}
   - component: {fileID: 2150449437293861419}
+  - component: {fileID: -1884683621879711800}
   m_Layer: 0
   m_Name: Hero_prefab
   m_TagString: Untagged
@@ -781,7 +782,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1478010403233654168}
@@ -832,6 +833,20 @@ CapsuleCollider:
   m_Height: 1.8772755
   m_Direction: 1
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &-1884683621879711800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2990820551457335444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8314c307ce0fd0b4eb88584ef270bcd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 8413640129295753961, guid: e34f6739e412b27429caf5084583e9f1, type: 3}
+  Range: 10
 --- !u!1 &3008525405981800028
 GameObject:
   m_ObjectHideFlags: 0
