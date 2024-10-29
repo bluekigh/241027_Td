@@ -3,8 +3,22 @@ using UnityEngine;
 
 public class App : Singleton<App>
 {
-    public int Gold = 10;
-    private int hp;
+    private int gold = 10;
+    public int Gold
+    {
+        get
+        {
+            return gold;
+        }
+        set
+        {
+            gold = value;
+            goldChnage.Invoke();
+        }
+    }
+    public Action goldChnage;
+    public Action hpChnage;
+    private int hp = 10;
 
     public int HP
     {
@@ -16,6 +30,7 @@ public class App : Singleton<App>
         {
 
             hp = value;
+            hpChnage.Invoke();
             if (hp <= 0)
             {
                 Death();
@@ -34,7 +49,7 @@ public class App : Singleton<App>
 
     public bool BuyTower(int towercost)   // App.Instace.BuyTower(0) = true ->  돈있음. false면 돈없음.
     {
-        if (towercost < Gold)
+        if (towercost < gold)
         {
             Gold -= towercost;
             return true;

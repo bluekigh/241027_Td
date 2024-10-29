@@ -5,11 +5,13 @@ public class StageManager : MonoBehaviour
 {
     public GameObject[] stage;
     public GameObject[] env_Obj;
+    public GameObject gameobject_UI;   // TODO : Final remove;;;
 
     private void Start()
     {
         Instantiate(stage[0]);
         Instantiate(stage[1]);
+        Instantiate(gameobject_UI);
         Env_Create();
     }
 
