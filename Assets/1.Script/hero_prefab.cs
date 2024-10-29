@@ -18,10 +18,14 @@ public class hero_prefab : MonoBehaviour
     Animator animator;              //애니메이터 정보
     Transform closestenemy;         //가장 가까운 적군 객체를 저장할 변수
 
+    public LayerMask layerMask;     //레이어를 받는 변수
     public GameObject Enemy;        //적군의 정보를 받기
-    public float Range = 3.0f;      //영웅의 사거리
-    float elapseTime = 0;           //시간 값을 받는 변수
-    float attackDelay = 2f;         //공격의 딜레이
+    float lefttime = 0f;
+
+    public float Range = 1.0f;      //영웅의 사거리
+    public float attack_delay = 0.1f; //공격의 딜레이
+    //float elapseTime = 0;         //시간 값을 받는 변수
+    //float attackDelay = 2f;       //공격의 딜레이
 
     void Start()
     {
@@ -33,75 +37,84 @@ public class hero_prefab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.LookAt(closestenemy); //공격 방향으로 쳐다보기
         Hero_Proc();
-
-
     }
 
-    void Hero_Proc()
+    void Hero_Proc()    //타워의 상태(상태별 애니메이션 필요)
     {
         print("영웅 상태" + h_state);
         switch (h_state)
         {
-            case Hero_State.FindEnemy:
+            case Hero_State.FindEnemy: //정지상태(FindEnemy)
                 animator.SetTrigger("Idle");
                 FindEnemy();
                 break;
-            case Hero_State.Attack:
+            case Hero_State.Attack: //공격상태(Attack)
                 Attack();
                 break;
         }
     }
 
-    /*IEnumerator Attack_Delay()
-    {
-        //애니메이션 세팅
-        Attack();
-        yield return new WaitForSeconds(2f);
-    }*/
+    
 
     void Attack()
     {
-        elapseTime += Time.deltaTime;
-        if (elapseTime > attackDelay)
+        print(" attack.0");
+        //StartCoroutine(Attack_motion());
+        
+        lefttime += Time.deltaTime;
+        
+        if(lefttime >= attack_delay)
         {
-            // Enemy.GetComponent<Enemy_Move>().Damage(1f);  데미지 주는 함수
+
+            print(" attack.1");
+            closestenemy.GetComponent<Enemy_Damage>().TakeDamage(1);  //데미지 주는 함수
+            lefttime = 0f; 
+            animator.SetTrigger("Attack");
         }
-        animator.SetTrigger("Attack");
         h_state = Hero_State.FindEnemy;
     }
+    //IEnumerator Attack_motion() //타격이 끝나고 나면 일정 시간 후에 재타격
+    //{
+       
+       
+    //    yield return new WaitForSeconds(1f);
+        
+    //}
 
 
-    void FindEnemy()  //근처의 적 검색
+    void FindEnemy()  //근처의 적 검색탐지
     {
-        Collider[] hitcolliders = Physics.OverlapSphere(mypos, Range, 12);  //12번이 Enemy 라는 전제하
+
+        Collider[] hitcolliders = Physics.OverlapSphere(mypos, Range, layerMask);  //12번이 Enemy 라는 전제하  //범위(range) 설정
         print("근처 적의 수" + hitcolliders.Length);
 
 
-        if (hitcolliders.Length > 0)
+        if (hitcolliders.Length > 0) //탐지 범위 내에 들어오면
         {
 
             foreach (Collider collider in hitcolliders)
             {
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
-                closestenemy = collider.transform;
-
-                if (distance <= Range)
+                closestenemy = collider.transform;  //가장 가까운 적 설정
+                
+                if (distance <= Range)  //적 타격
                 {
-                    Attack();
+                    h_state = Hero_State.Attack;
                 }
                 else
                 {
-                    h_state = Hero_State.FindEnemy;
+                    h_state = Hero_State.FindEnemy; //타격 대상이 없다면 정지상태(coroutine)
                 }
             }
-
         }
         else
         {
             h_state = Hero_State.FindEnemy;
         }
     }
+    
     //void searching_enemy()
     //{
     //    if (Enemy != null)
@@ -125,11 +138,12 @@ public class hero_prefab : MonoBehaviour
     //}
 }
 /*
- * 돈 체크 - 돈이 충분하다면 타워 생성
+ * 
 
-타워의 상태(상태별 애니메이션 필요) -정지상태(FindEnemy) / 공격상태(Attack)
-적 감지 -탐지 범위(range) 설정, 탐지 범위 내에 들어오면 적 타격, 타격이 끝나고 나면 일정 시간 후에 재타격, 타격 대상이 없다면 정지상태(coroutine)
+
+
 타워의 공격행동 개시 => 적 데미지(Damage), 적 HP(HP)손실
+
 타워가 레벨업을함.
 공격에 속성이 들어감
 

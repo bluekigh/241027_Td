@@ -845,8 +845,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8314c307ce0fd0b4eb88584ef270bcd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 8413640129295753961, guid: e34f6739e412b27429caf5084583e9f1, type: 3}
-  Range: 10
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  Enemy: {fileID: 6459381258529971416, guid: e34f6739e412b27429caf5084583e9f1, type: 3}
+  Range: 1
+  attack_delay: 0.1
 --- !u!1 &3008525405981800028
 GameObject:
   m_ObjectHideFlags: 0
