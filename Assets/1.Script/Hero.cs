@@ -4,40 +4,41 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public enum Hero_State //영웅 상태
-{
-    FindEnemy,
-    Attack
-}
+
 public class Hero : MonoBehaviour
 {
-    Hero_State h_state;             //영웅 상태 받기
-
-    Transform Enemy;                //적군의 정보를 받기
-
     Vector3 heropos;                //영웅의 생성 위치(클릭 위치)
-    Vector3 mypos;                  //영웅의 현재 위치(생성된 영웅)
-    
-    public float Range = 3.0f;      //영웅의 사거리
 
     public GameObject hero_prefab;  //영웅 프리펩 받아오는 변수
 
-    float elapseTime = 0;           //시간 값을 받는 변수
-    float attackDelay = 2f;         //공격의 딜레이
-
+    
+    
     void Start()
     {
-        h_state = Hero_State.FindEnemy;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        Hero_Create();
+        Gold_Check();
     }
 
+    void Gold_Check()
+    {
+        if (App.Instance.BuyTower(0) == true)
+        {
+            Hero_Create();
+        }
+        else
+        {
+            print("돈이 부족합니다");
+        }
+        
+    }
     void Hero_Create()  //Hero 생성
     {
+        
         if (Input.GetMouseButtonDown(0) == true)
         //laycast 만들기 -해당 지점 좌표 측정(print)
         {
@@ -48,7 +49,7 @@ public class Hero : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit) == true)
             {
-                heropos = hit.point; //충돌 지점을 heropos에 저장
+                heropos = hit.transform.position; //충돌 지점을 heropos에 저장
                 print("클릭 위치" + heropos);
                 //이펙트 설정
                 if (hit.transform.gameObject.layer == 10)
@@ -59,61 +60,9 @@ public class Hero : MonoBehaviour
             }
         }
     }
+   
 
-    void Hero_Proc()
-    {
-        print("영웅 상태" + h_state);
-        switch (h_state)
-        {
-            case Hero_State.FindEnemy:
-                FindEnemy();
-                break;
-            case Hero_State.Attack:
-                Attack();
-                break;
-        }
-
-
-
-    }
-
-    void FindEnemy()
-    {
-        if (Enemy != null)
-        {
-            mypos =this.transform.position;
-            float search_dist = Vector3.Distance(mypos,Enemy.transform.position);
-
-            if (search_dist <= Range)   //탐지거리 이내면
-            {
-                h_state = Hero_State.Attack;
-            }
-        }
-    }
-
-    void Attack()
-    {
-        mypos = this.transform.position;
-        float search_dist = Vector3.Distance(mypos, Enemy.transform.position);
-
-        if (search_dist <= Range)
-        {
-            elapseTime += Time.deltaTime;
-            if (elapseTime > attackDelay)
-            {
-                Attack_func();
-            }
-        }
-        else
-        {
-            h_state= Hero_State.FindEnemy;
-        }
-
-    }
-    void Attack_func()
-    {
-        //Enemy.GetComponent<Enemy>().Damage(1f);
-    }
+    
 
 }
 /*
