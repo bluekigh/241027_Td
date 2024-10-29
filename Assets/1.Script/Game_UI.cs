@@ -6,8 +6,8 @@ public class Game_UI : MonoBehaviour
 {
     public Text goldtext;
     public Text hptext;
-    public Button BtnGold;
-    public Button BtnHp;
+    // public Button BtnGold;
+    // public Button BtnHp;
 
     private void Start()
     {
@@ -16,14 +16,14 @@ public class Game_UI : MonoBehaviour
         App.Instance.goldChnage.Invoke();
         App.Instance.hpChnage.Invoke();
 
-        BtnGold.onClick.AddListener(() =>
-        {
-            App.Instance.Gold--;
-        });
-        BtnHp.onClick.AddListener(() =>
-        {
-            App.Instance.HP--;
-        });
+        // BtnGold.onClick.AddListener(() =>
+        // {
+        //     App.Instance.Gold--;
+        // });
+        // BtnHp.onClick.AddListener(() =>
+        // {
+        //     App.Instance.HP--;
+        // });
     }
 
     private void hptextChage()
@@ -35,8 +35,4 @@ public class Game_UI : MonoBehaviour
     {
         goldtext.text = App.Instance.Gold.ToString();
     }
-
-
-
-
 }

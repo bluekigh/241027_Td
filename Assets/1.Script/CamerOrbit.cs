@@ -29,7 +29,7 @@ public class CameraOrbit : MonoBehaviour
         // 타겟을 중심으로 회전
         Quaternion rotation = Quaternion.Euler(angleY, angleX, 0);
         Vector3 position = target - rotation * Vector3.forward * distance;
-
+        if (position.y < 2) position.y = 2;
         transform.position = position; // 카메라 위치 업데이트
         transform.LookAt(target); // 타겟 바라보기
     }
