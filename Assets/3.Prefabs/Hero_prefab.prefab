@@ -849,7 +849,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   Range: 2
-  attack_delay: 2
+  attack_delay: 1
   attack_damage: 1
 --- !u!1 &3008525405981800028
 GameObject:

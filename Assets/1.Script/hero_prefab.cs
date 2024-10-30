@@ -100,10 +100,18 @@ public class hero_prefab : MonoBehaviour
     {
         if (closestenemy != null) 
         {
-            closestenemy.GetComponent<Enemy_Damage>().TakeDamage(attack_damage);
+            //closestenemy.GetComponent<Enemy_Damage>().TakeDamage(attack_damage);
             animator.SetTrigger("Attack");
+            Invoke("Add_Damage", 0.3f);
         }
         
+    }
+    void Add_Damage()
+    {
+        if (closestenemy != null)
+        {
+            closestenemy.GetComponent<Enemy_Damage>().TakeDamage(attack_damage);
+        }
     }
 
 
