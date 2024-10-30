@@ -28,7 +28,6 @@ public class Enemy_Spawn : MonoBehaviour
     }
     private void EnemySpawn()
     {
-
         Vector3 spawnpoint = App.Instance.Waypoint[0];
         Instantiate(EnemyPrefab, spawnpoint, Quaternion.Euler(0, 180, 0));
     }

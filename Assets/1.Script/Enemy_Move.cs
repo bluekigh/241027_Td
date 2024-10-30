@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Enemy_Move : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed = 1f;
     public float rotationSpeed = 500f;
    
 
