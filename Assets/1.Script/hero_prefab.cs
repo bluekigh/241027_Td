@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -20,14 +21,16 @@ public class hero_prefab : MonoBehaviour
 
     public LayerMask layerMask;          //레이어를 받는 변수
     //public GameObject Enemy;           //적군의 정보를 받기
-    float lefttime = 0f;
+    //float lefttime = 0f;               //적군 생성까지 남은 시간
+    float e_distance;                    //적군까지의 거리를 받는 변수
 
     public float Range = 1.0f;           //영웅의 사거리
-    public float attack_delay = 0.1f;    //공격의 딜레이
+    public float attack_delay ;    //공격의 딜레이
     public int attack_damage = 1;        //영웅의 공격력
     //float elapseTime = 0;              //시간 값을 받는 변수
     //float attackDelay = 2f;            //공격의 딜레이
 
+    Coroutine a_coroutine;                      //공격 코루틴
     void Start()
     {
         mypos = this.transform.position;
@@ -45,7 +48,7 @@ public class hero_prefab : MonoBehaviour
 
     void Hero_Proc()    //타워의 상태(상태별 애니메이션 필요)
     {
-        print("영웅 상태" + h_state);
+        //print("영웅 상태" + h_state);
         switch (h_state)
         {
             case Hero_State.FindEnemy: //정지상태(FindEnemy)
@@ -64,32 +67,49 @@ public class hero_prefab : MonoBehaviour
     {
         //print(" attack.0");
         //StartCoroutine(Attack_motion());
-        
-        lefttime += Time.deltaTime;
-        
-        if(lefttime >= attack_delay)
-        {
 
-            
-            animator.SetTrigger("Attack");
-            closestenemy.GetComponent<Enemy_Damage>().TakeDamage(attack_damage);  //데미지 주는 함수
-            lefttime = 0f; 
-            
-        }
-        h_state = Hero_State.FindEnemy;
-    }
-    //IEnumerator Attack_motion() //타격이 끝나고 나면 일정 시간 후에 재타격
-    //{
-       
-       
-    //    yield return new WaitForSeconds(1f);
+        //lefttime += Time.deltaTime;
+
+        //if(lefttime >= attack_delay)
+        //{
+        //    animator.SetTrigger("Attack");
+        //    closestenemy.GetComponent<Enemy_Damage>().TakeDamage(attack_damage);  //데미지 주는 함수
+        //    lefttime = 0f; 
+        //}
+
+        if (a_coroutine == null) { a_coroutine = StartCoroutine(Attack_routine()); }
         
-    //}
+       
+        
+        
+    }
+    IEnumerator Attack_routine() //타격이 끝나고 나면 일정 시간 후에 재타격
+    {
+
+        //First_Attack();
+        //while (e_distance <= Range)
+        
+            First_Attack();
+            yield return new WaitForSeconds(attack_delay);
+            Debug.Log("공격");
+            h_state = Hero_State.FindEnemy;
+            a_coroutine = null;
+        
+    }
+    void First_Attack()
+    {
+        if (closestenemy != null) 
+        {
+            closestenemy.GetComponent<Enemy_Damage>().TakeDamage(attack_damage);
+            animator.SetTrigger("Attack");
+        }
+        
+    }
 
 
     void FindEnemy()  //근처의 적 검색탐지
     {
-
+        closestenemy =null;
         Collider[] hitcolliders = Physics.OverlapSphere(mypos, Range, layerMask);  //12번이 Enemy 라는 전제하  //범위(range) 설정
         //print("근처 적의 수" + hitcolliders.Length);
 
@@ -100,6 +120,7 @@ public class hero_prefab : MonoBehaviour
             foreach (Collider collider in hitcolliders)
             {
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
+                e_distance = distance;
                 closestenemy = collider.transform;  //가장 가까운 적 설정
                 
                 if (distance <= Range)  //적 타격
