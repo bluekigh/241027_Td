@@ -25,8 +25,8 @@ public class StageManager : MonoBehaviour
         Instantiate(gameobject_UI);
         Env_Create();
         App.Instance.Explosion = reachdesti;
-        GameObject temp = new GameObject();  // TODO : TestCode
-        temp.AddComponent<TestChageStage>().stageManager = this; // TODO : TestCode
+        //GameObject temp = new GameObject();  // TODO : TestCode
+        //temp.AddComponent<TestChageStage>().stageManager = this; // TODO : TestCode
         App.Instance.changestage = EndGame;
     }
 

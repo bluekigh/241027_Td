@@ -8,15 +8,19 @@ public class Enemy_Damage : MonoBehaviour
     private float max_HP = 10f;    //최대체력
     private float cur_HP;          //현재체력
     private Animator animator;     //애니메이션 컴포넌트
+    private Enemy_Spawn spawner;   
 
     private bool isDead = false;   //사망여부 확인
+    private Enemy_Move enemy_Move; //적이동 스크립트
 
     public Slider HP_Slider;       //체력바 UI
 
     private void Start()
     {
         cur_HP = max_HP;
+        spawner = FindObjectOfType<Enemy_Spawn>();
         animator = GetComponent<Animator>();
+        enemy_Move = GetComponent<Enemy_Move>();
         UpdateHpUI();
     }
 
@@ -25,17 +29,19 @@ public class Enemy_Damage : MonoBehaviour
         if (isDead) return;
         Debug.Log("적이 데미지를 입었습니다. 남은체력:" + cur_HP);
         cur_HP -= damage;
-
+        UpdateHpUI();
         animator.SetTrigger("HIt"); //피격 애니메이션 트리거
 
         if (cur_HP <= 0)
         {
+            enemy_Move.enabled = false;   //이동스크립트 비활성화
             Die();
         }
     }
    
     private void Die()
     {
+        spawner.OnEnemyDeath();
         isDead = true;
         //사망처리
         animator.SetTrigger("isDead");
