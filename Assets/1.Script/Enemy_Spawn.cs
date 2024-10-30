@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_Spawn : MonoBehaviour
 {
-    public Transform EnemyPrefab;          //적 프리팹
+    public Transform[] EnemyPrefab;        //다양한 프리팹 적 배열 
     public float  WavesTime  = 2f;         //적 생성 시간 간격
     private float Countdown  = 5f;         //시작하기전 카운트
 
@@ -62,8 +62,9 @@ public class Enemy_Spawn : MonoBehaviour
     }
     private void EnemySpawn()
     {
+        Transform selectEnemyPrefab = EnemyPrefab[Mathf.Min(stage - 1, EnemyPrefab.Length - 1)];
         Vector3 spawnpoint = App.Instance.Waypoint[0];
-        Instantiate(EnemyPrefab, spawnpoint, Quaternion.Euler(0, 180, 0));
+        Instantiate(selectEnemyPrefab, spawnpoint, Quaternion.Euler(0, 180, 0));
     }
     public void OnEnemyDeath()
     {
