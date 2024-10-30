@@ -7,14 +7,11 @@ using UnityEngine;
 
 public class Enemy_Move : MonoBehaviour
 {
-    public float speed = 1f;
+    public float speed         = 1f;
     public float rotationSpeed = 500f;
-   
+    private int waypointIndex  = 1;
 
     public Vector3[] target = new Vector3[] { };
-    
-
-    private int waypointIndex = 1;
 
     private void Start()
     {
@@ -24,7 +21,7 @@ public class Enemy_Move : MonoBehaviour
     {
         if (waypointIndex >= target.Length) return;
 
-        Vector3 dir = target[waypointIndex]- this.transform.position  ; 
+        Vector3 dir = target[waypointIndex]- this.transform.position ; 
         //방향계산
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World); 
         //이동처리

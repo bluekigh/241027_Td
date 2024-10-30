@@ -8,18 +8,16 @@ public class Enemy_Damage : MonoBehaviour
     private float max_HP = 10f;    //최대체력
     private float cur_HP;          //현재체력
     private Animator animator;     //애니메이션 컴포넌트
-    private Enemy_Spawn spawner;   
-
-    private bool isDead = false;   //사망여부 확인
+    private Enemy_Spawn spawner;   //스폰 스크립트 참조
     private Enemy_Move enemy_Move; //적이동 스크립트
-
     public Slider HP_Slider;       //체력바 UI
+    private bool isDead = false;   //사망여부 확인
 
     private void Start()
     {
-        cur_HP = max_HP;
-        spawner = FindObjectOfType<Enemy_Spawn>();
-        animator = GetComponent<Animator>();
+        cur_HP     = max_HP;
+        spawner    = FindObjectOfType<Enemy_Spawn>();
+        animator   = GetComponent<Animator>();
         enemy_Move = GetComponent<Enemy_Move>();
         UpdateHpUI();
     }
