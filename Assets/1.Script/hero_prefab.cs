@@ -19,7 +19,7 @@ public class hero_prefab : MonoBehaviour
     Transform closestenemy;         //가장 가까운 적군 객체를 저장할 변수
 
     public LayerMask layerMask;     //레이어를 받는 변수
-    public GameObject Enemy;        //적군의 정보를 받기
+    //public GameObject Enemy;        //적군의 정보를 받기
     float lefttime = 0f;
 
     public float Range = 1.0f;      //영웅의 사거리
@@ -60,7 +60,7 @@ public class hero_prefab : MonoBehaviour
 
     void Attack()
     {
-        print(" attack.0");
+        //print(" attack.0");
         //StartCoroutine(Attack_motion());
         
         lefttime += Time.deltaTime;
@@ -69,9 +69,10 @@ public class hero_prefab : MonoBehaviour
         {
 
             print(" attack.1");
+            animator.SetTrigger("Attack");
             closestenemy.GetComponent<Enemy_Damage>().TakeDamage(1);  //데미지 주는 함수
             lefttime = 0f; 
-            animator.SetTrigger("Attack");
+            
         }
         h_state = Hero_State.FindEnemy;
     }
@@ -142,9 +143,9 @@ public class hero_prefab : MonoBehaviour
 
 
 
-타워의 공격행동 개시 => 적 데미지(Damage), 적 HP(HP)손실
 
-타워가 레벨업을함.
-공격에 속성이 들어감
+
+
+공격에 속성이 들어감 - 기존의 타워보다 성장한 능력치의 스크립드를 새로운 프리펩에 적용
 
 */
