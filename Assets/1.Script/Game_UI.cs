@@ -11,11 +11,11 @@ public class Game_UI : MonoBehaviour
 
     private void Start()
     {
-        App.Instance.goldChnage += goldtextChage;
-        App.Instance.hpChnage += hptextChage;
+        App.Instance.goldChnage = goldtextChage;
+        App.Instance.hpChnage = hptextChage;
         App.Instance.goldChnage.Invoke();
         App.Instance.hpChnage.Invoke();
-
+       
         // BtnGold.onClick.AddListener(() =>
         // {
         //     App.Instance.Gold--;
@@ -24,6 +24,11 @@ public class Game_UI : MonoBehaviour
         // {
         //     App.Instance.HP--;
         // });
+    }
+    private void OnDisable()
+    {
+        App.Instance.goldChnage -= goldtextChage;
+        App.Instance.hpChnage -= hptextChage;
     }
 
     private void hptextChage()

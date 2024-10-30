@@ -30,9 +30,10 @@ public class App : Singleton<App>
         set
         {
             gold = value;
-            goldChnage.Invoke();
+            if (goldChnage != null) goldChnage.Invoke();
         }
     }
+    public Action changestage;
     public Action goldChnage;
     public Action hpChnage;
     private int hp = 10;
@@ -47,14 +48,14 @@ public class App : Singleton<App>
         {
 
             hp = value;
-            hpChnage.Invoke();
+            if (hpChnage != null) hpChnage.Invoke();
             if (hp <= 0)
             {
                 Death();
             }
         }
     }
-
+    public Action Explosion;
     public Vector3[] Waypoint { get; internal set; }
     public int CurStage
     {
@@ -89,6 +90,7 @@ public class App : Singleton<App>
     public void ReachDestination(int hp)
     {
         HP -= hp;
+        Explosion.Invoke();
     }
 
     public void sceneChange(int sceneName)
@@ -101,6 +103,8 @@ public class App : Singleton<App>
 
             case 1:
                 SceneManager.LoadScene("1_Game");
+                App.Instance.HP = 10;  // TODO : brute init Need change
+                App.Instance.Gold = 10; // TODO : brute init Need change
                 break;
 
             case 2:
@@ -148,7 +152,7 @@ public class App : Singleton<App>
     public void LoadScore()
     {
         Debug.Log($" before {highscore.Count} score");
-        
+
         if (PlayerPrefs.HasKey("highscoreKey"))
         {
             string json = PlayerPrefs.GetString("highscoreKey");

@@ -427,6 +427,8 @@ MonoBehaviour:
   - {fileID: 3600787950391070853, guid: b5919ab72365f9f4fbd3ca83bd1988ba, type: 3}
   - {fileID: 4240463054398544382, guid: cc20fe3fe71a3f24690bc1e0722089a2, type: 3}
   gameobject_UI: {fileID: 4055378500452435341, guid: 19e25714e07c28c4e9d3fec8f94b5536, type: 3}
+  explosionprefab: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
+  expeffect: {fileID: 0}
 --- !u!1 &1654136584
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +570,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70168fc28535ac6408d3fce1dcb2de46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hero_prefab: {fileID: 2990820551457335444, guid: a8c257c4ad101224e8c2d56163d9eb3c, type: 3}
+  hero_prefab1: {fileID: 2990820551457335444, guid: a8c257c4ad101224e8c2d56163d9eb3c, type: 3}
+  hero_prefab2: {fileID: 152118712449417365, guid: c03fe2073e2e6bf4c91fb9caef16a90a, type: 3}
 --- !u!4 &2132500350
 Transform:
   m_ObjectHideFlags: 0
