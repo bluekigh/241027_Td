@@ -127,9 +127,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4096
-  Enemy: {fileID: 6459381258529971416, guid: e34f6739e412b27429caf5084583e9f1, type: 3}
-  Range: 1
-  attack_delay: 0.1
+  Range: 4
+  attack_delay: 1
+  attack_damage: 2
 --- !u!1 &367079370156307216
 GameObject:
   m_ObjectHideFlags: 0

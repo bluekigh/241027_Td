@@ -29,7 +29,12 @@ public class StageManager : MonoBehaviour
         App.Instance.Explosion = reachdesti;
         //GameObject temp = new GameObject();  // TODO : TestCode
         //temp.AddComponent<TestChageStage>().stageManager = this; // TODO : TestCode
-        App.Instance.changestage = EndGame;
+        App.Instance.changestage += EndGame;
+    }
+
+    private void OnDisable()
+    {
+        App.Instance.changestage -= EndGame;
     }
 
     private void Env_Create()

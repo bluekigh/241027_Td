@@ -77,7 +77,7 @@ public class App : Singleton<App>
 
     public bool BuyTower(int towercost)   // App.Instace.BuyTower(0) = true ->  돈있음. false면 돈없음.
     {
-        if (towercost < gold)
+        if (towercost <= gold)
         {
             Gold -= towercost;
             return true;

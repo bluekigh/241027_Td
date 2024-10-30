@@ -14,11 +14,16 @@ public class Hero : MonoBehaviour
     public GameObject hero_prefab2;  //레벨2 프리펩 받아오는 변수
     //public GameObject tile;
     public LayerMask layermask;      //타일 레이어 받아오기
-
+    List<GameObject> Towers = new List<GameObject>();
 
     void Start()
     {
+        App.Instance.changestage += Destory_All;
+    }
 
+    private void OnDisable()
+    {
+        App.Instance.changestage -= Destory_All;
     }
 
     // Update is called once per frame
@@ -62,6 +67,7 @@ public class Hero : MonoBehaviour
         GameObject temp1 = Instantiate(this.hero_prefab1, heropos, Quaternion.identity); //해당 지점 좌표에 타워(Hero) 생성(Instantiate)
         //BuildAble b_mathod = FindObjectOfType<BuildAble>();
         tile_build.build(temp1);
+        Towers.Add(temp1);
     }
     void lev_2(BuildAble tile_build)
     {
@@ -69,6 +75,7 @@ public class Hero : MonoBehaviour
         GameObject temp2 = Instantiate(this.hero_prefab2, heropos, Quaternion.identity);
         //BuildAble b_mathod = FindObjectOfType<BuildAble>();
         tile_build.build(temp2);
+        Towers.Add(temp2);
     }
     void Hero_Create()  //Hero 생성
     {
@@ -94,6 +101,12 @@ public class Hero : MonoBehaviour
             }
         }
     }
-
+    public void Destory_All()
+    {
+        foreach (GameObject Tower in Towers)
+        {
+            Destroy(Tower);
+        }
+    }
 
 }
