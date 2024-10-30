@@ -70,6 +70,7 @@ public class App : Singleton<App>
     private void Death()
     {
         Debug.LogWarning($" Game Over");
+        sceneChange(1);
 
     }
 

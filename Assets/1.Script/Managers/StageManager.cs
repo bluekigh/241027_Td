@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
+
     public GameObject[] stage;
     public GameObject[] env_Obj;
     public GameObject gameobject_UI;   // TODO : Final remove;
+
     GameObject road1;
     GameObject stage1;
 
