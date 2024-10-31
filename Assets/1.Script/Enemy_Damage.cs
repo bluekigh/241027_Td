@@ -28,7 +28,7 @@ public class Enemy_Damage : MonoBehaviour
         Debug.Log("적이 데미지를 입었습니다. 남은체력:" + cur_HP);
         cur_HP -= damage;
         UpdateHpUI();
-        animator.SetTrigger("HIt"); //피격 애니메이션 트리거
+       
 
         if (cur_HP <= 0)
         {
