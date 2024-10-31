@@ -1,9 +1,5 @@
-
 using System.Collections.Generic;
 using UnityEngine;
-
-
-
 
 public class Hero : MonoBehaviour
 {
@@ -39,41 +35,30 @@ public class Hero : MonoBehaviour
         {
             if (App.Instance.BuyTower(1) == true) //타워 비용 소모
             {
-                lev_1(tile_build); //레벨 1 타워 생성
+                lev(tile_build, this.hero_prefab1); //레벨 1 타워 생성
             }
         }
         else if (num == 1)   //레벨2 타워 생성
         {
-
             if (App.Instance.BuyTower(1) == true)
             {
-                lev_2(tile_build);
+                lev(tile_build, this.hero_prefab2);
             }
-
         }
         else if (num == 2)
         {
-            Debug.Log("해당 지역에 설치할 수 없습니다.");
             return;
         }
     }
-    void lev_1(BuildAble tile_build)
+    
+    void lev(BuildAble tile_build, GameObject heroprefab)
     {
-        Debug.Log("레벨1 타워생성");
-        GameObject temp1 = Instantiate(this.hero_prefab1, heropos, Quaternion.identity); //해당 지점 좌표에 타워(Hero) 생성(Instantiate)
-        tile_build.build(temp1);
-        Towers.Add(temp1);
-    }
-    void lev_2(BuildAble tile_build)
-    {
-        Debug.Log("레벨2 타워생성");
-        GameObject temp2 = Instantiate(this.hero_prefab2, heropos, Quaternion.identity);
-        tile_build.build(temp2);
-        Towers.Add(temp2);
+        GameObject temp = Instantiate(heroprefab, heropos, Quaternion.identity);
+        tile_build.build(temp);
+        Towers.Add(temp);
     }
     void Hero_Create()  //Hero 생성
     {
-
         if (Input.GetMouseButtonDown(0) == true)        //laycast 만들기 -해당 지점 좌표 측정(print)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -106,14 +91,13 @@ public class Hero : MonoBehaviour
                 {
                     heropos = hit.transform.position;           //충돌 지점을 heropos에 저장
                                                                
-                    if (hit.transform.gameObject.layer == 10)   //layer 10번을 설치타일로 설정
+                    if (hit.transform.gameObject.layer == 10)   //layer 10번을 설치타일로 설정`
                     {
                         BuildAble tile_build = hit.collider.GetComponent<BuildAble>();
                         Gold_Check(tile_build);
                     }
                 }
             }
-
         }
     }
     public void Destory_All()
@@ -123,5 +107,4 @@ public class Hero : MonoBehaviour
             Destroy(Tower);
         }
     }
-
 }

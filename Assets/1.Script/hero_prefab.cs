@@ -1,8 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-
-
 public enum Hero_State //영웅 상태
 {
     FindEnemy,
@@ -37,7 +35,6 @@ public class hero_prefab : MonoBehaviour
         animator = this.GetComponentInChildren<Animator>();
         animator.SetTrigger("Start");
         h_state = Hero_State.FindEnemy; //영웅의 첫 상태
-
     }
 
     // Update is called once per frame
@@ -69,7 +66,6 @@ public class hero_prefab : MonoBehaviour
     {
         First_Attack();
         yield return new WaitForSeconds(attack_delay);
-        Debug.Log("공격");
         h_state = Hero_State.FindEnemy;
         a_coroutine = null;
     }
@@ -82,7 +78,6 @@ public class hero_prefab : MonoBehaviour
             AttackSound.PlayOneShot(Hitsound);
             animator.SetTrigger("Attack");
             Invoke("Add_Damage", 0.3f);
-
         }
     }
     void Add_Damage()
@@ -90,7 +85,6 @@ public class hero_prefab : MonoBehaviour
         if (closestenemy != null)
         {
             closestenemy.GetComponent<Enemy_Damage>().TakeDamage(attack_damage);
-
         }
     }
 

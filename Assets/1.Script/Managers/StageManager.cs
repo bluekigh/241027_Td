@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StageManager : MonoBehaviour
@@ -16,7 +17,8 @@ public class StageManager : MonoBehaviour
     private GameObject explosion;
     public GameObject explosionprefab;
     public ParticleSystem expeffect;
-
+    AudioSource audioSource;
+    public AudioClip audioClip;
     private void Start()
     {
 
@@ -30,6 +32,11 @@ public class StageManager : MonoBehaviour
         //GameObject temp = new GameObject();  // TODO : TestCode
         //temp.AddComponent<TestChageStage>().stageManager = this; // TODO : TestCode
         App.Instance.changestage += EndGame;
+        audioSource = this.AddComponent<AudioSource>();
+        audioSource.clip = audioClip;
+        audioSource.loop = true;
+        audioSource.volume = 0.3f;
+        audioSource.Play();
     }
 
     private void OnDisable()
