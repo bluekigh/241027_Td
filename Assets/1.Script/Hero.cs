@@ -83,13 +83,38 @@ public class Hero : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask) == true) //특정 레이어의 오브젝트만 찾고 나머지는 관통
             {
                 heropos = hit.transform.position;           //충돌 지점을 heropos에 저장
-                print("클릭 위치" + heropos);                //이펙트 설정
+                
                 if (hit.transform.gameObject.layer == 10)   //layer 10번을 설치타일로 설정
                 {
                     BuildAble tile_build = hit.collider.GetComponent<BuildAble>();
                     Gold_Check(tile_build);
                 }
             }
+        }
+    }
+
+    void Hero_Create_Mobile() //모바일 용 타워 설치 함수
+    {
+        if (Input.touchCount > 0)        //laycast 만들기 -해당 지점 좌표 측정(print)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                RaycastHit hit = new RaycastHit();
+
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask) == true) //특정 레이어의 오브젝트만 찾고 나머지는 관통
+                {
+                    heropos = hit.transform.position;           //충돌 지점을 heropos에 저장
+                                                               
+                    if (hit.transform.gameObject.layer == 10)   //layer 10번을 설치타일로 설정
+                    {
+                        BuildAble tile_build = hit.collider.GetComponent<BuildAble>();
+                        Gold_Check(tile_build);
+                    }
+                }
+            }
+
         }
     }
     public void Destory_All()

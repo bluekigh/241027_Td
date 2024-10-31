@@ -13,15 +13,17 @@ public enum Hero_State //영웅 상태
 public class hero_prefab : MonoBehaviour
 {
     Hero_State h_state;                  //영웅 상태 받기
-    public AudioSource locationsound;    //타워 설치 오디오 받는 변수
-    public AudioSource AttackSound;      //공격 오디오 받는 변수
+
+    //public AudioSource locationsound;  //타워 설치 오디오 받는 변수
+    public AudioSource AttackSound;      //오디오 소스 받는 변수
+    public AudioClip Hitsound;           //공격 오디오 클립 받는 변수
     public GameObject Shootprefab;       //타격 이펙트
 
     Vector3 mypos;                       //영웅의 현재 위치(생성된 영웅)
     Vector3 enemyvector;                 //가장 가까운 적의 vector값을 받는 변수
     Animator animator;                   //애니메이터 정보
     Transform closestenemy;              //가장 가까운 적군 객체를 저장할 변수
-    
+
     Coroutine a_coroutine;               //공격 코루틴
 
     public LayerMask layerMask;          //레이어를 받는 변수
@@ -37,7 +39,7 @@ public class hero_prefab : MonoBehaviour
         animator = this.GetComponentInChildren<Animator>();
         animator.SetTrigger("Start");
         h_state = Hero_State.FindEnemy; //영웅의 첫 상태
-        
+
     }
 
     // Update is called once per frame
@@ -56,18 +58,15 @@ public class hero_prefab : MonoBehaviour
                 FindEnemy();
                 break;
             case Hero_State.Attack: //공격상태(Attack)
-                Attack();
+                if (a_coroutine == null)
+                {
+                    a_coroutine = StartCoroutine(Attack_routine());
+                }
                 break;
         }
     }
 
-    void Attack()
-    {
-        if (a_coroutine == null)
-        {
-            a_coroutine = StartCoroutine(Attack_routine());
-        }
-    }
+   
     IEnumerator Attack_routine() //타격이 끝나고 나면 일정 시간 후에 재타격
     {
         First_Attack();
@@ -81,10 +80,11 @@ public class hero_prefab : MonoBehaviour
         if (closestenemy != null)
         {
             Instantiate(Shootprefab, enemyvector, Quaternion.identity);
-            AttackSound.Play();
+            //AttackSound.Play();
+            AttackSound.PlayOneShot(Hitsound);
             animator.SetTrigger("Attack");
             Invoke("Add_Damage", 0.3f);
-            
+
         }
     }
     void Add_Damage()
@@ -92,7 +92,7 @@ public class hero_prefab : MonoBehaviour
         if (closestenemy != null)
         {
             closestenemy.GetComponent<Enemy_Damage>().TakeDamage(attack_damage);
-            
+
         }
     }
 
