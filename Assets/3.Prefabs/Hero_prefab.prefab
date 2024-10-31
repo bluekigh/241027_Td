@@ -847,8 +847,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8314c307ce0fd0b4eb88584ef270bcd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locationsound: {fileID: -3198718248027214658}
   AttackSound: {fileID: -2329429610845951413}
+  Hitsound: {fileID: 8300000, guid: b1b9c1f0ea1fcae439ed1a4d44ff05fd, type: 3}
   Shootprefab: {fileID: 8446933761405272757, guid: 8533104469dec4547851b00e3bdd3917, type: 3}
   layerMask:
     serializedVersion: 2
