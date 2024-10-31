@@ -4,7 +4,7 @@ public class Quitmanager : MonoBehaviour
 {
     private void Start()
     {
-        Invoke("Quit", 3);
+        Invoke("Quit", 6);
     }
 
     void Quit()

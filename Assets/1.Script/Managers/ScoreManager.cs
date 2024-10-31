@@ -11,11 +11,11 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 12; i++)
-        {
-            playername[i].text = App.Instance.highscore[i].name;
-            score[i].text = App.Instance.highscore[i].score.ToString();
-        }
+        //for (int i = 0; i < 12; i++)
+        //{
+        //    playername[i].text = App.Instance.highscore[i].name;
+        //    score[i].text = App.Instance.highscore[i].score.ToString();
+        //}
 
         Btn_Restart.onClick.AddListener(() =>
         {

@@ -192,7 +192,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: See you Later
+  m_Text: 
 --- !u!222 &117999743
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -659,7 +659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: f75154283b1554d43a2530532f877183, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
