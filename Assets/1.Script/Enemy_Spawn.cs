@@ -13,6 +13,7 @@ public class Enemy_Spawn : MonoBehaviour
     private int EnemyAlive   = 0;          //살아있는 적의 수
 
     private bool isCountdownComplete = false;  //카운트다운 완료여부
+    Coroutine Coroutine_control;
     private void Start()
     {
         Debug.Log("Enemy_Spawn 스크립트가 실행되었습니다.");
@@ -26,7 +27,7 @@ public class Enemy_Spawn : MonoBehaviour
             if(Countdown <= 0 )
             {
                 isCountdownComplete = true;      //카운트다운 완료
-                StartCoroutine(SpawnEnemies());  //적생성 시작
+                Coroutine_control =StartCoroutine(SpawnEnemies());  //적생성 시작
             }
         }
     }
@@ -47,21 +48,22 @@ public class Enemy_Spawn : MonoBehaviour
         isCountdownComplete = false;       //카운트다운 초기화
         Countdown    = 5f;                 //카운트다운 시간 재설정
         //StartCoroutine(SpawnEnemies());  //적 생성 시작
+        if (Coroutine_control != null) StopCoroutine(Coroutine_control);
     }
     private IEnumerator SpawnEnemies()   
     {
         while (SpawnedEnemy < EnemyToSpawn)
         {
             EnemySpawn();                   //적 한마리 생성
-            SpawnedEnemy++;                
-            EnemyAlive++;
+            SpawnedEnemy++;                 //스폰된 적 수 늘리기             
+            EnemyAlive++;                   
             
             yield return new WaitForSeconds(WavesTime);
         }
     }
     private void EnemySpawn()
     {
-        Transform selectEnemyPrefab = EnemyPrefab[Mathf.Min(stage - 1, EnemyPrefab.Length - 1)];
+        Transform selectEnemyPrefab = EnemyPrefab[Mathf.Min(stage - 1, EnemyPrefab.Length - 1)]; 
         Vector3 spawnpoint = App.Instance.Waypoint[0];
         Instantiate(selectEnemyPrefab, spawnpoint, Quaternion.Euler(0, 180, 0));
     }
