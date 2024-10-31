@@ -112,7 +112,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 8162556216344909825}
   m_HandleRect: {fileID: 0}
-  m_Direction: 0
+  m_Direction: 1
   m_MinValue: 0
   m_MaxValue: 10
   m_WholeNumbers: 0
@@ -470,6 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP_Slider: {fileID: 5775627074681199829}
+  DeathSound: {fileID: 8300000, guid: 39d2907d8f026a94d83aaf31ab9f765f, type: 3}
 --- !u!1 &6062570550034503681
 GameObject:
   m_ObjectHideFlags: 0

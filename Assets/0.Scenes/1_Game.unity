@@ -151,7 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b997e7651795e48449e37397556c02f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 8413640129295753961, guid: e34f6739e412b27429caf5084583e9f1, type: 3}
+  EnemyPrefab:
+  - {fileID: 6235428366310356153, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
+  - {fileID: 8413640129295753961, guid: e34f6739e412b27429caf5084583e9f1, type: 3}
   WavesTime: 5
 --- !u!4 &465354964
 Transform:
@@ -572,6 +574,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hero_prefab1: {fileID: 2990820551457335444, guid: a8c257c4ad101224e8c2d56163d9eb3c, type: 3}
   hero_prefab2: {fileID: 152118712449417365, guid: c03fe2073e2e6bf4c91fb9caef16a90a, type: 3}
+  layermask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!4 &2132500350
 Transform:
   m_ObjectHideFlags: 0
