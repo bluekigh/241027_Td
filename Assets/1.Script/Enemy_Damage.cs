@@ -12,6 +12,9 @@ public class Enemy_Damage : MonoBehaviour
     public Slider HP_Slider;       //체력바 UI
     private bool isDead = false;   //사망여부 확인
 
+    public AudioClip DeathSound;     //사망 사운드 클립
+    private AudioSource audioSource; //AudioSource 컴포넌트
+
     private void Start()
     {
         cur_HP     = max_HP;
@@ -19,6 +22,9 @@ public class Enemy_Damage : MonoBehaviour
         animator   = GetComponent<Animator>();
         enemy_Move = GetComponent<Enemy_Move>();
         UpdateHpUI();
+
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;  //자동재생 비활성화
     }
 
     public void TakeDamage(int damage)
@@ -42,8 +48,17 @@ public class Enemy_Damage : MonoBehaviour
         //사망처리
         animator.SetTrigger("isDead");
         //애니메이터의 isDead트리거 활성화
+        PlayDeathSound();
+        //사망 사운드 재생
         StartCoroutine(DestroyAfterAnimation());
         //일정시간후 오브젝트 파괴
+    }
+    private void PlayDeathSound()
+    {
+        if (audioSource != null && DeathSound != null)
+        {
+            audioSource.PlayOneShot(DeathSound);
+        }
     }
     private void UpdateHpUI()
     {
@@ -57,9 +72,9 @@ public class Enemy_Damage : MonoBehaviour
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         //사망 애니메이션의 길이만큼 대기
-        Destroy(gameObject);
-        //적 오브젝트 파괴
         App.Instance.Gold++;
         //시스템에 골드 추가
+        Destroy(gameObject);
+        //적 오브젝트 파괴
     }
 }
