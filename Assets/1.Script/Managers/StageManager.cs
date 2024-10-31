@@ -35,7 +35,7 @@ public class StageManager : MonoBehaviour
         audioSource = this.AddComponent<AudioSource>();
         audioSource.clip = audioClip;
         audioSource.loop = true;
-        audioSource.volume = 0.3f;
+        audioSource.volume = 0.5f;
         audioSource.Play();
     }
 
